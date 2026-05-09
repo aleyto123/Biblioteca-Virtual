@@ -72,123 +72,41 @@ El servidor estará disponible en: `http://127.0.0.1:8000/`
 
 ## Endpoints Disponibles
 
-### Libros (Books)
+*(Endpoints en desarrollo - se actualizará en versiones posteriores)*
 
-#### Listar todos los libros
-```bash
-GET /api/books/
-curl -X GET http://127.0.0.1:8000/api/books/
-```
+### Estado Actual del Proyecto
 
-**Respuesta esperada:**
-```json
-[
-  {
-    "id": 1,
-    "title": "El Quijote",
-    "publication_year": 1605,
-    "genre": "Novela",
-    "author": 1
-  }
-]
-```
+✅ **Parte 1:** Configuración inicial de Django + DRF  
+✅ **Parte 2:** Modelos de datos (Author y Book) y Serializers  
+🔄 **Parte 3:** Views y ViewSets (en progreso)  
+⏳ **Parte 4:** URLs y configuración de rutas  
+⏳ **Parte 5:** Funcionalidades CRUD completas  
+⏳ **Parte 6:** Búsqueda y filtros  
+⏳ **Parte 7:** Testing y validación final
 
-#### Crear un nuevo libro
-```bash
-POST /api/books/
-curl -X POST http://127.0.0.1:8000/api/books/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Cien Años de Soledad",
-    "publication_year": 1967,
-    "genre": "Realismo Mágico",
-    "author": 1
-  }'
-```
+### Modelos de Datos
 
-#### Obtener un libro específico
-```bash
-GET /api/books/{id}/
-curl -X GET http://127.0.0.1:8000/api/books/1/
-```
+#### Author (Autor)
+- `name`: CharField (255 caracteres) - Nombre completo del autor
+- `nationality`: CharField (100 caracteres) - Nacionalidad del autor
+- `created_at`: DateTimeField - Fecha de creación (automática)
+- `updated_at`: DateTimeField - Fecha de actualización (automática)
 
-#### Actualizar un libro
-```bash
-PUT /api/books/{id}/
-curl -X PUT http://127.0.0.1:8000/api/books/1/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Cien Años de Soledad",
-    "publication_year": 1967,
-    "genre": "Ficción",
-    "author": 1
-  }'
-```
+#### Book (Libro)
+- `title`: CharField (255 caracteres) - Título del libro
+- `publication_year`: IntegerField - Año de publicación
+- `genre`: CharField (100 caracteres) - Género literario
+- `author`: ForeignKey - Relación con Author (uno a muchos)
+- `created_at`: DateTimeField - Fecha de creación (automática)
+- `updated_at`: DateTimeField - Fecha de actualización (automática)
 
-#### Eliminar un libro
-```bash
-DELETE /api/books/{id}/
-curl -X DELETE http://127.0.0.1:8000/api/books/1/
-```
+**Relación:** Un autor puede tener múltiples libros, pero cada libro pertenece a un solo autor.
 
-#### Buscar libros por título o género
-```bash
-GET /api/books/?search=Quijote
-curl -X GET http://127.0.0.1:8000/api/books/?search=Quijote
-```
+### Serializers Implementados
 
-### Autores (Authors)
-
-#### Listar todos los autores
-```bash
-GET /api/authors/
-curl -X GET http://127.0.0.1:8000/api/authors/
-```
-
-**Respuesta esperada:**
-```json
-[
-  {
-    "id": 1,
-    "name": "Miguel de Cervantes",
-    "nationality": "España"
-  }
-]
-```
-
-#### Crear un nuevo autor
-```bash
-POST /api/authors/
-curl -X POST http://127.0.0.1:8000/api/authors/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Gabriel García Márquez",
-    "nationality": "Colombia"
-  }'
-```
-
-#### Obtener un autor específico
-```bash
-GET /api/authors/{id}/
-curl -X GET http://127.0.0.1:8000/api/authors/1/
-```
-
-#### Actualizar un autor
-```bash
-PUT /api/authors/{id}/
-curl -X PUT http://127.0.0.1:8000/api/authors/1/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Miguel de Cervantes",
-    "nationality": "España"
-  }'
-```
-
-#### Eliminar un autor
-```bash
-DELETE /api/authors/{id}/
-curl -X DELETE http://127.0.0.1:8000/api/authors/1/
-```
+- `AuthorSerializer`: Serializa todos los campos del modelo Author
+- `BookSerializer`: Serializa Book con campo adicional `author_name`
+- `BookDetailSerializer`: Serializa Book con información completa del autor relacionado
 
 ## Estructura del Proyecto
 
