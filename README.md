@@ -78,9 +78,9 @@ El servidor estará disponible en: `http://127.0.0.1:8000/`
 
 ✅ **Parte 1:** Configuración inicial de Django + DRF  
 ✅ **Parte 2:** Modelos de datos (Author y Book) y Serializers  
-🔄 **Parte 3:** Views y ViewSets (en progreso)  
-⏳ **Parte 4:** URLs y configuración de rutas  
-⏳ **Parte 5:** Funcionalidades CRUD completas  
+✅ **Parte 3:** Views y ViewSets de la API REST  
+✅ **Parte 4:** Configuración completa de la API y datos de prueba  
+🔄 **Parte 5:** Funcionalidades CRUD completas (en progreso)  
 ⏳ **Parte 6:** Búsqueda y filtros  
 ⏳ **Parte 7:** Testing y validación final
 
@@ -107,6 +107,169 @@ El servidor estará disponible en: `http://127.0.0.1:8000/`
 - `AuthorSerializer`: Serializa todos los campos del modelo Author
 - `BookSerializer`: Serializa Book con campo adicional `author_name`
 - `BookDetailSerializer`: Serializa Book con información completa del autor relacionado
+
+### ViewSets y Endpoints Implementados
+
+#### AuthorViewSet
+- **GET** `/api/authors/` - Listar todos los autores
+- **POST** `/api/authors/` - Crear nuevo autor
+- **GET** `/api/authors/{id}/` - Obtener autor específico
+- **PUT/PATCH** `/api/authors/{id}/` - Actualizar autor
+- **DELETE** `/api/authors/{id}/` - Eliminar autor
+- **Búsqueda:** Por nombre y nacionalidad
+- **Ordenamiento:** Por nombre, nacionalidad, fecha de creación
+
+#### BookViewSet
+- **GET** `/api/books/` - Listar todos los libros
+- **POST** `/api/books/` - Crear nuevo libro
+- **GET** `/api/books/{id}/` - Obtener libro específico
+- **PUT/PATCH** `/api/books/{id}/` - Actualizar libro
+- **DELETE** `/api/books/{id}/` - Eliminar libro
+- **Búsqueda:** Por título, género y nombre del autor
+- **Filtros:** Por autor, género, año de publicación
+- **Ordenamiento:** Por título, año, género, fecha de creación
+
+### Tecnologías Adicionales
+
+- **django-filter==25.2** - Para filtros avanzados en la API
+
+## Ejemplos de Uso de la API
+
+### Datos de Prueba Incluidos
+
+La API incluye datos de prueba para facilitar las pruebas:
+
+**Autores:**
+- Gabriel García Márquez (Colombia)
+- Miguel de Cervantes (España)
+
+**Libros:**
+- "Cien Años de Soledad" (1967, Realismo Mágico) - Gabriel García Márquez
+- "El Amor en los Tiempos del Cólera" (1985, Novela) - Gabriel García Márquez
+- "Don Quijote de la Mancha" (1605, Novela) - Miguel de Cervantes
+
+### Ejemplos de Endpoints
+
+#### 1. Listar todos los libros
+```bash
+GET /api/books/
+```
+
+**Respuesta:**
+```json
+{
+  "count": 3,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "title": "Cien Años de Soledad",
+      "publication_year": 1967,
+      "genre": "Realismo Mágico",
+      "author": 1,
+      "author_name": "Gabriel García Márquez",
+      "created_at": "2026-05-09T18:40:00Z",
+      "updated_at": "2026-05-09T18:40:00Z"
+    },
+    {
+      "id": 2,
+      "title": "El Amor en los Tiempos del Cólera",
+      "publication_year": 1985,
+      "genre": "Novela",
+      "author": 1,
+      "author_name": "Gabriel García Márquez",
+      "created_at": "2026-05-09T18:40:00Z",
+      "updated_at": "2026-05-09T18:40:00Z"
+    },
+    {
+      "id": 3,
+      "title": "Don Quijote de la Mancha",
+      "publication_year": 1605,
+      "genre": "Novela",
+      "author": 2,
+      "author_name": "Miguel de Cervantes",
+      "created_at": "2026-05-09T18:40:00Z",
+      "updated_at": "2026-05-09T18:40:00Z"
+    }
+  ]
+}
+```
+
+#### 2. Buscar libros por título
+```bash
+GET /api/books/?search=Quijote
+```
+
+#### 3. Filtrar libros por género
+```bash
+GET /api/books/?genre=Novela
+```
+
+#### 4. Filtrar libros por autor
+```bash
+GET /api/books/?author=1
+```
+
+#### 5. Ordenar libros por año de publicación
+```bash
+GET /api/books/?ordering=publication_year
+```
+
+#### 6. Crear un nuevo libro
+```bash
+POST /api/books/
+Content-Type: application/json
+
+{
+  "title": "Nueva Novela",
+  "publication_year": 2024,
+  "genre": "Ficción",
+  "author": 1
+}
+```
+
+#### 7. Listar todos los autores
+```bash
+GET /api/authors/
+```
+
+**Respuesta:**
+```json
+{
+  "count": 2,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "name": "Gabriel García Márquez",
+      "nationality": "Colombia",
+      "created_at": "2026-05-09T18:40:00Z",
+      "updated_at": "2026-05-09T18:40:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Miguel de Cervantes",
+      "nationality": "España",
+      "created_at": "2026-05-09T18:40:00Z",
+      "updated_at": "2026-05-09T18:40:00Z"
+    }
+  ]
+}
+```
+
+#### 8. Buscar autores por nombre
+```bash
+GET /api/authors/?search=Gabriel
+```
+
+### Configuración de la API
+
+- **Paginación:** 10 elementos por página
+- **Rate Limiting:** 100 requests/hora (anónimos), 1000 requests/hora (autenticados)
+- **Filtros:** Búsqueda, ordenamiento y filtrado avanzado
+- **Renderers:** JSON y Browsable API (interfaz web para desarrollo)
 
 ## Estructura del Proyecto
 
