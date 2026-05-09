@@ -319,8 +319,6 @@ bookverse_api/
 - El proyecto utiliza SQLite como base de datos por defecto.
 - No se utiliza el Django Admin para la gestión de datos.
 - Toda la gestión se realiza mediante endpoints REST.
-- Los commits del repositorio son progresivos y descriptivos para rastrear el desarrollo del proyecto.
-
 ---
 
 **Última actualización:** 9 de Mayo de 2026
