@@ -15,7 +15,8 @@ class AuthorViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]  # Para desarrollo - en producción usar autenticación
 
     # Configuración de filtros y búsqueda
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['name', 'nationality']
     search_fields = ['name', 'nationality']
     ordering_fields = ['name', 'nationality', 'created_at']
     ordering = ['name']  # Orden por defecto
@@ -40,12 +41,12 @@ class BookViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         """
         Retorna el serializer apropiado según la acción.
-        Para list y retrieve usa BookSerializer (con author_name),
-        para create/update usa BookSerializer básico.
+        Para list usa BookSerializer (con author_name),
+        para retrieve usa BookDetailSerializer con datos completos del autor.
         """
-        if self.action in ['list', 'retrieve']:
-            return BookSerializer
-        return BookSerializer  # Para create, update, partial_update
+        if self.action == 'retrieve':
+            return BookDetailSerializer
+        return BookSerializer
 
     def perform_create(self, serializer):
         """Método personalizado para creación de libros"""
