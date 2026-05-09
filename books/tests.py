@@ -41,7 +41,7 @@ class BooksAuthorsAPITest(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Author.objects.count(), 3)
-        self.assertEqual(Author.objects.last().name, 'Isabel Allende')
+        self.assertTrue(Author.objects.filter(name='Isabel Allende', nationality='Chile').exists())
 
     def test_update_author(self):
         url = reverse('author-detail', kwargs={'pk': self.author1.pk})
