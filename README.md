@@ -80,9 +80,15 @@ El servidor estará disponible en: `http://127.0.0.1:8000/`
 ✅ **Parte 2:** Modelos de datos (Author y Book) y Serializers  
 ✅ **Parte 3:** Views y ViewSets de la API REST  
 ✅ **Parte 4:** Configuración completa de la API y datos de prueba  
-🔄 **Parte 5:** Funcionalidades CRUD completas (en progreso)  
-⏳ **Parte 6:** Búsqueda y filtros  
-⏳ **Parte 7:** Testing y validación final
+✅ **Parte 5:** Funcionalidades CRUD completas  
+✅ **Parte 6:** Búsqueda y filtros completas  
+✅ **Parte 7:** Testing y validación final
+
+### Partes Completadas
+
+- **Parte 5**: CRUD completo para Autor y Libro mediante endpoints DRF.
+- **Parte 6**: Búsqueda por título, género y autor; filtros por autor, género y año.  
+- **Parte 7**: Cobertura de pruebas con `APITestCase` para crear, listar, actualizar, eliminar y filtrar registros.
 
 ### Modelos de Datos
 
@@ -153,6 +159,24 @@ La API incluye datos de prueba para facilitar las pruebas:
 #### 1. Listar todos los libros
 ```bash
 GET /api/books/
+```
+
+### Pruebas Automatizadas
+
+El proyecto incluye un conjunto de pruebas en `books/tests.py` que verifica:
+- creación, listado, actualización y eliminación de autores
+- creación, listado, actualización y eliminación de libros
+- búsqueda de libros por título
+- filtrado de libros por género y autor
+
+Ejecutar pruebas:
+```bash
+python manage.py test
+```
+
+#### 2. Buscar libros por título
+```bash
+GET /api/books/?search=Quijote
 ```
 
 **Respuesta:**
