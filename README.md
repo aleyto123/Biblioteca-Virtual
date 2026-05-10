@@ -32,7 +32,7 @@ Cada libro está asociado con un autor, estableciendo una relación de uno a muc
 1. **Clonar el repositorio:**
 ```bash
 git clone https://github.com/aleyto123/Biblioteca-Virtual.git
-cd bookverse_api
+cd Biblioteca-Virtual
 ```
 
 2. **Crear entorno virtual:**
